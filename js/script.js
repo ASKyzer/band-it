@@ -1,10 +1,15 @@
 
-var bandIs = function (bandQuery){
+var bandIs = function (){
 
   $('#upcomingVenues').empty()
+  $('#bandName').empty()
+  $('#bandPicture').empty()
+
+
   console.log(bandQuery);
     // var bandQuery = ""
     var queryURL = "https://rest.bandsintown.com/artists/" + bandQuery + "/events?app_id=bandit"
+    var queryURL2 = "https://rest.bandsintown.com/artists/" + bandQuery + "?app_id=bandit"
     //  band is in town api
     $.ajax({
         url: queryURL,
@@ -14,8 +19,8 @@ var bandIs = function (bandQuery){
         for ( var i =0; i<resultsEvent.length; i++){
             // console.log(resultsEvent[i])
             var venue = resultsEvent[i].venue;
-            var location = venue.city;
-            var arena = venue.name;
+            var location = venue.city
+            var arena = venue.name
             var div = $("<div>");
             var city = $("<p>").text(venue.city);
             var lat = venue.latitude;
@@ -27,8 +32,22 @@ var bandIs = function (bandQuery){
             });
 
             div.append(city, name);
-            $("#upcomingVenues").append("<p>" + location + " | " + arena + "</p>");
+            $("#upcomingVenues").append("<p>" + location + "  |  " + arena + "</p>");
         }
+    })
+
+    // another ajax query to just the artist parameter to get the band name and image and append to DOM
+    $.ajax({
+      url: queryURL2,
+      method: "GET"
+    }).then(function(res){
+      console.log(res);
+      var bandPic = $("<img>").attr({'src': res.image_url,
+          'class': "img img-responsive img-fluid"
+        })
+      var bandName = $("<h1>").text(res.name)
+      $('#bandPicture').append(bandPic)
+      $('#bandName').append(bandName)
     })
 }
 var yelpfunction= function(){
