@@ -1,5 +1,7 @@
-var bandIs = function (){
-    var bandQuery = "run river north"
+
+var bandIs = function (bandQuery){
+  console.log(bandQuery);
+    // var bandQuery = ""
     var queryURL = "https://rest.bandsintown.com/artists/" + bandQuery + "/events?app_id=bandit"
     //  band is in town api
     $.ajax({
@@ -8,7 +10,7 @@ var bandIs = function (){
     }).then(function(resultsEvent){
         // console.log(resultsEvent)
         for ( var i =0; i<resultsEvent.length; i++){
-            console.log(resultsEvent[i])
+            // console.log(resultsEvent[i])
             var venue = resultsEvent[i].venue;
             var div = $("<div>");
             var city = $("<p>").text(venue.city);
@@ -21,7 +23,7 @@ var bandIs = function (){
             });
 
             div.append(city, name);
-            $("body").append(div);
+            $("#upcomingVenues").append(div);
         }
     })
 }
@@ -39,7 +41,7 @@ var yelpfunction= function(){
     }
     $.post("/yelp", newSearchRequest, function(data){
       // console loging all the data as array and json object
-      console.log(data);
+      // console.log(data);
       // use this to get google map intergration and info we want to give out as output for all the store info
     });
   })
@@ -48,8 +50,25 @@ bandIs();
 $(document).on("click", ".venue", function(){
     var lati = $(this).attr("data-lat")
     var longi = $(this).attr("data-long")
-    console.log(lati)
-    console.log(longi)
+    // console.log(lati)
+    // console.log(longi)
+})
+var bandQuery = '';
+// when user clicks submit submitButton
+$('#submitBtn').on('click', function () {
+  console.log($('#bandName').val().trim());
+  bandQuery = $('#bandName').val().trim();
+  bandIs(bandQuery);
+  console.log(bandQuery);
+})
+
+// user submit query on the results.html search bars
+$('#submitBtnResultsPage').on('click', function (e) {
+  event.preventDefault()
+  console.log($('#bandNameResultsPage').val().trim());
+  bandQuery = $('#bandNameResultsPage').val().trim();
+  bandIs(bandQuery);
+  console.log(bandQuery);
 })
 
 //* Google Maps JS *//
