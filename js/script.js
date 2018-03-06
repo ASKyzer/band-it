@@ -1,5 +1,7 @@
 
 var bandIs = function (bandQuery){
+
+  $('#upcomingVenues').empty()
   console.log(bandQuery);
     // var bandQuery = ""
     var queryURL = "https://rest.bandsintown.com/artists/" + bandQuery + "/events?app_id=bandit"
