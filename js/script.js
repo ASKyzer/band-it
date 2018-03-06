@@ -51,3 +51,25 @@ $(document).on("click", ".venue", function(){
     console.log(lati)
     console.log(longi)
 })
+
+//* Google Maps JS *//
+
+// get goole map function with marker set desired location
+function initMap() {
+  var capitalGrill = {lat: 38.89331, lng: -77.0205} // replace capitalGrill with venue lati and longi
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: '', // zoom in to neighborboods near the venue
+    center: capitalGrill
+  });
+  var image = 'https://png.icons8.com/color/50/000000/music.png'
+  var musicmarker = new google.maps.Marker({
+    position: capitalGrill,
+    map: map,
+    icon: image
+  })
+  map.setZoom(14)
+  map.panTo(marker.position)
+}
+initMap()
+
+//
