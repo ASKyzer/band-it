@@ -58,17 +58,46 @@ $(document).on("click", ".venue", function(){
 function initMap() {
   var capitalGrill = {lat: 38.89331, lng: -77.0205} // replace capitalGrill with venue lati and longi
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: '', // zoom in to neighborboods near the venue
+    zoom: 14, // zoom in to neighborboods near the venue
     center: capitalGrill
   });
   var image = 'https://png.icons8.com/color/50/000000/music.png'
   var musicmarker = new google.maps.Marker({
     position: capitalGrill,
     map: map,
-    icon: image
+    icon: image,
+    title: 'Uluru (Ayers Rock)'
+
   })
-  map.setZoom(14)
-  map.panTo(marker.position)
+// content of clicking on the map marker.  Populate from yelp data later.
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+      'sandstone rock formation in the southern part of the '+
+      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+      'south west of the nearest large town, Alice Springs; 450&#160;km '+
+      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      'Aboriginal people of the area. It has many springs, waterholes, '+
+      'rock caves and ancient paintings. Uluru is listed as a World '+
+      'Heritage Site.</p>'+
+      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+      '(last visited June 22, 2009).</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  })
+// listen for the music marker click
+  musicmarker.addListener('click', function() {
+    infowindow.open(map, musicmarker)
+  })
 }
 initMap()
 
