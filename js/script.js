@@ -14,6 +14,8 @@ var bandIs = function (bandQuery){
         for ( var i =0; i<resultsEvent.length; i++){
             // console.log(resultsEvent[i])
             var venue = resultsEvent[i].venue;
+            var location = venue.city;
+            var arena = venue.name;
             var div = $("<div>");
             var city = $("<p>").text(venue.city);
             var lat = venue.latitude;
@@ -25,7 +27,7 @@ var bandIs = function (bandQuery){
             });
 
             div.append(city, name);
-            $("#upcomingVenues").append(div);
+            $("#upcomingVenues").append("<p>" + location + " | " + arena + "</p>");
         }
     })
 }
@@ -74,7 +76,6 @@ $('#submitBtnResultsPage').on('click', function (e) {
 })
 
 //* Google Maps JS *//
-
 // get goole map function with marker set desired location
 function initMap() {
   var capitalGrill = {lat: 38.89331, lng: -77.0205} // replace capitalGrill with venue lati and longi
