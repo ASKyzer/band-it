@@ -133,7 +133,9 @@ function initMap() {
       '</div>';
 
   var infowindow = new google.maps.InfoWindow({
-    content: contentString
+    content: contentString,
+    maxWidth: 400
+
   })
 // listen for the music marker click
   musicmarker.addListener('click', function() {
