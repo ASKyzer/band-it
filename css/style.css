@@ -11,6 +11,11 @@ html {
   background-size: cover;
 }
 
+img {
+  border-radius: 50%;
+}
+
+
 .mainContentOverlay {
   height: 100%;
   width: 100%;
@@ -79,5 +84,6 @@ html {
   padding: 0;
   margin-bottom: 1rem;
 }
+
 
 }

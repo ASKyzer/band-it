@@ -5,38 +5,47 @@ var bandIs = function (){
   $('#bandName').empty()
   $('#bandPicture').empty()
 
-
-  console.log(bandQuery);
-    // var bandQuery = ""
+    var bandQuery = $("#bandName").val()
+    // testing variable
+    // var bandQuery = "Run River North"
+    //  Takes in user input
     var queryURL = "https://rest.bandsintown.com/artists/" + bandQuery + "/events?app_id=bandit"
-    var queryURL2 = "https://rest.bandsintown.com/artists/" + bandQuery + "?app_id=bandit"
+    var queryURL2 = "spotify url goes here "
     //  band is in town api
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(resultsEvent){
-        // console.log(resultsEvent)
+        // looping through the array of upcoming events
         for ( var i =0; i<resultsEvent.length; i++){
             // console.log(resultsEvent[i])
             var venue = resultsEvent[i].venue;
-            var location = venue.city
-            var arena = venue.name
-            var div = $("<div>");
-            var city = $("<p>").text(venue.city);
             var lat = venue.latitude;
             var long = venue.longitude;
+            var line = $("<hr>")
+            var div = $("<div>").attr({
+                "id": venue.name,
+                "class": "event",           
+            });
+            var city = $("<p>").text(venue.city);
             var name = $("<p>").text(venue.name).attr({
-                "class": "venue",
+                "class": "venue", 
+                // Venue location information is set to the the data types below
+                "data-venue": venue.name,
+                "data-date": resultsEvent[i].datetime,
+                "data-city": venue.city,
                 "data-lat": lat,
                 "data-long": long
             });
-
-            div.append(city, name);
-            $("#upcomingVenues").append("<p>" + location + "  |  " + arena + "</p>");
+            // render the information to the html page, this will be adjusted 
+            div.append(line, city, name);
+            // this ajax call works but is currently being appended to a placeholder that does not exist
+            $("#placeholderDiv").append(div);
         }
     })
 
     // another ajax query to just the artist parameter to get the band name and image and append to DOM
+    // this will be repurposed to fit the spotify api search
     $.ajax({
       url: queryURL2,
       method: "GET"
@@ -69,29 +78,21 @@ var yelpfunction= function(){
     });
   })
 }
-bandIs();
+$("#submitBtn").on("click", function(event){
+    if($("#bandName").val() !== "")
+    bandIs()
+})
+
+// This is testing to make sure that the data types were set correctly
 $(document).on("click", ".venue", function(){
     var lati = $(this).attr("data-lat")
     var longi = $(this).attr("data-long")
-    // console.log(lati)
-    // console.log(longi)
-})
-var bandQuery = '';
-// when user clicks submit submitButton
-$('#submitBtn').on('click', function () {
-  console.log($('#bandName').val().trim());
-  bandQuery = $('#bandName').val().trim();
-  bandIs(bandQuery);
-  console.log(bandQuery);
-})
 
-// user submit query on the results.html search bars
-$('#submitBtnResultsPage').on('click', function (e) {
-  event.preventDefault()
-  console.log($('#bandNameResultsPage').val().trim());
-  bandQuery = $('#bandNameResultsPage').val().trim();
-  bandIs(bandQuery);
-  console.log(bandQuery);
+    console.log(lati)
+    console.log(longi)
+    console.log($(this).attr("data-venue"))
+    console.log($(this).attr("data-date"))
+    console.log($(this).attr("data-city"))
 })
 
 //* Google Maps JS *//
