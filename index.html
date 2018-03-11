@@ -61,7 +61,7 @@
           window.location.href = `/bands/${bandname}`;
         }
     });
-    if(!localStorage.getItem("login")){
+    if(!data[0]){
       // $.post("/api").then(function(data){
       //   data=[]
       // });
@@ -78,9 +78,6 @@
       $("#spotify").on("click", function(){
         localStorage.clear()
         $("#spotify").attr("src", offline)
-        // $.post("/api").then(function(data){
-        // data=[]
-        // });
         window.location.href="/"
       })
       }
