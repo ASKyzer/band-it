@@ -23,7 +23,7 @@ var bandIs = function (){
     }).then(function(resultsEvent){
       var image= resultsEvent.image_url;
       var name= resultsEvent.name;
-      var newImage=$("<img>").attr({"src": image, "class": "img img-responsive img-fluid"});
+      var newImage=$("<img>").attr({"src": image, "class": "img img-responsive img-fluid", "alt": "click here to go to"+resultsEvent.name+"'s facebook"});
       var newAncher=$("<a>").attr({"href": resultsEvent.facebook_page_url, "target": "_blank"});
       newAncher.append(newImage);
       var newName=$("<h1>").text(name);
